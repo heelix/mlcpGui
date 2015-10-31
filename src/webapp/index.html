@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/mlcp.css">
+<link rel="stylesheet" href="/css/fuelux.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/app.css">
+<title>MLCP Configurere</title>
+</head>
+<body class="fuelux">
+
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				MLCP Configuration Generator<br /> <small>A tool for
+					quickly creating configuration settings for MarkLogic MLCP</small>
+			</h1>
+		</div>
+
+		<div class="wizard" data-initialize="wizard" id="myWizard">
+			<div class="steps-container">
+				<ul class="steps">
+					<li data-step="1" data-name="basic_information" class="active"><span class="badge">1</span>Basic Information<span class="chevron"></span></li>
+					<li data-step="2" data-name="confg_settings"><span class="badge">2</span>Configuration Settings<span class="chevron"></span></li>
+					<li data-step="3" data-name="opt_settings"><span class="badge">3</span>Optional Settings<span class="chevron"></span></li>
+				</ul>
+			</div>
+			<div class="actions">
+				<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+				<button type="button" class="btn btn-default btn-next" data-last="Complete"> Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+			</div>
+			<div class="step-content">
+				<div class="step-pane active sample-pane alert" data-step="1">
+					<div class="row">
+						<div class="col-md-6">
+							<fieldset>
+								<legend>Database Information</legend>
+								<div class="form-group">
+									<label for="host" class="control-label">Host</label>
+									<input type="url" name="host" class="form-control input-sm" value="" placeholder="Host Name" />
+								</div>
+								<div class="form-group">
+									<label for="port" class="control-label">Port</label>
+									<input type="number" name="port" class="form-control input-sm" value="8000" placeholder="Port" />
+								</div>
+							</fieldset>
+						</div>
+						<div class="col-md-6">
+							<fieldset>
+								<legend>Authentication</legend>
+								<div class="form-group">
+									<label for="username" class="control-label">User Name</label>
+									<input type="text" name="username" class="form-control input-sm" value="" placeholder="User Name" required />
+								</div>
+								<div class="form-group">
+									<label for="password" class="control-label">Password</label>
+									<input type="password" name="password" id="password" class="form-control input-sm" value="" placeholder="Password" />
+								</div>
+								
+							</fieldset>
+						</div>
+					</div>
+					<div class="row">
+						<fieldset id="command-section">
+							<legend>Command</legend>
+							<div class="col-md-3">
+								<div class="radio checked">
+								  <label class="radio-custom radio-inline" data-initialize="radio" id="import">
+								    <input class="sr-only" name="command" type="radio" value="import" checked="checked">
+								    Import <span class="help-block">You can insert content into a MarkLogic Server database from flat files, compressed ZIP and GZIP files, aggregate XML files, Hadoop sequence files, and MarkLogic Server database archives. The input data can be accessed from the native filesystem or HDFS.</span>
+								  </label>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="radio checked">
+								  <label class="radio-custom radio-inline" data-initialize="radio" id="export">
+								    <input class="sr-only" name="command" type="radio" value="export">
+								    Export <span class="help-block">You can export content in a MarkLogic Server database to files or an archive. Use archives to copy content from one MarkLogic Server database to another. Output can be written to the native filesystem or to HDFS.</span>
+								  </label>
+								 </div>
+							</div>
+							<div class="col-md-3">
+								<div class="radio checked">
+								  <label class="radio-custom radio-inline" data-initialize="radio" id="copy">
+								    <input class="sr-only" name="command" type="radio" value="copy">
+								    Copy <span class="help-block">Use the mlcp copy command to copy content and associated metadata from one MarkLogic Server database to another when both are reachable on the network. You can also copy data from offline forests to a MarkLogic Server database.</span>
+								  </label>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="radio checked">
+								  <label class="radio-custom radio-inline" data-initialize="radio" id="extract">
+								    <input class="sr-only" name="command" type="radio" value="extract">
+								    Extract <span class="help-block">Direct Access enables you to bypass MarkLogic Server and extract documents from a database by reading them directly from the on-disk representation of a forest. This feature is best suited for accessing documents in archived, offline forests.</span>
+								  </label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+				<div class="step-pane sample-pane alert" data-step="2">
+					<div id="settings"></div>
+				</div>
+				<div class="step-pane sample-pane alert" data-step="3">
+					<div id="opt_settings"></div>
+				</div>
+			</div0
+
+		</div>
+<!-- Template for checkbox setting fields -->
+<script id="settings-template" type="text/x-handlebars-template">
+	<h3>{{action_title}} Configuration Settings</h3>
+	{{#each settings}}
+		{{#mod20if @index 'start'}}
+		<div class="row">
+		{{/mod20if}}
+		<div class="col-md-6">
+			<div class="checkbox">
+				<label class="checkbox-custom" data-initialize="checkbox">
+				<input class="sr-only" type="checkbox" value="{{Field}}" data-type="{{Type}}" data-hint="{{Description}}" data-field-label="{{fieldLabel Field}}" name="{{Field}}" data-hint="{{Description}}">
+					<span class="checkbox-label">{{Field}}</span>
+				</label>
+				<span class="help-block">{{Description}}</span>
+			</div>
+		</div>
+		{{#mod20if @index 'end'}}
+		</div>
+		{{/mod20if}}
+	{{/each}}
+</script>
+
+<!-- Input Fields Template -->
+<script id="mlcp_template" type="text/x-handlebars-template">
+	
+		<input type="hidden" name="-host" id="host_hidden" value="" />
+		<input type="hidden" name="-port" id="port_hidden" value="" />
+		<input type="hidden" name="-username" id="username_hidden" value="" />
+		<input type="hidden" name="-password" id="password_hidden" value="" />
+		<input type="hidden" name="-command" id="command_hidden" value="" />
+
+		<h2>{{fieldsetTitle}}</h2>
+			{{#each fields}}
+				{{#mod20if @index 'start'}}
+					<div class="row">
+				{{/mod20if}}
+					<div class="col-md-6">
+						{{#valIsString field_type}}
+							<div class="form-group">
+							    <span title="Remove Field" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-remove"></span>  <label class="control-label" for="{{input_name}}">{{field_label}}</label>
+							    <input type="text" class="form-control" id="{{input_name}}" name="{{input_name}}" />
+							    <span class="help-block small">{{hint}}</span>
+						  	</div>
+					  	{{/valIsString}}
+					  	{{#valIsBoolean field_type}}
+					  		<div class="col-lg-4">
+					  		<h5><span title="Remove Field" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-remove"></span>  {{field_label}}</h5>
+					  		<div class="radio">
+							  <label class="radio-custom" data-initialize="radio">
+							    <input class="sr-only" name="{{input_name}}" type="radio" value="true">
+							    True
+							  </label>
+							</div>
+							<div class="radio checked">
+							  <label class="radio-custom" data-initialize="radio">
+							    <input class="sr-only" name="{{input_name}}" type="radio" value="false" checked="checked">
+							    False 
+							  </label>
+							</div>
+							</div>
+							<div class="col-sm-8"><br />
+							    <span class="help-block small">{{hint}}</span>
+							 </div>
+					  	{{/valIsBoolean}}
+					  	{{#valIsNumber field_type}}
+							<div class="form-group">
+							    <span title="Remove Field" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-remove"></span>  <label class="control-label" for="{{input_name}}">{{field_label}}</label>
+							    <input type="number" class="form-control" id="{{input_name}}" name="{{input_name}}" min="0" />
+							    <span class="help-block small">{{hint}}</span>
+						  	</div>
+					  	{{/valIsNumber}}
+					  	{{#valIsCharacter field_type}}
+							<div class="form-group">
+							    <span title="Remove Field" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-remove"></span>  <label class="control-label" for="{{input_name}}">{{field_label}}</label>
+							    <input type="text" class="form-control" id="{{input_name}}" name="{{input_name}}" maxlength="1" />
+							    <span class="help-block small">{{hint}}</span>
+						  	</div>
+					  	{{/valIsCharacter}}
+					  	{{#valIsType field_type}}
+							<div class="form-group">
+							    <span title="Remove Field" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-remove"></span>  <label class="control-label" for="{{input_name}}">{{field_label}}</label>
+							    <select class="form-control" name="{{input_name}}">
+								  {{> (OptionsTypePartial this) }}
+								</select>
+							    <span class="help-block small">{{hint}}</span>
+						  	</div>
+					  	{{/valIsType}}
+					  </div>
+				{{#mod20if @index 'end'}}
+					</div>
+				{{/mod20if}}
+			{{/each}}
+</script>
+
+<script id="inputFileTypeOptions-partial" type="x-handlebars-template">​
+   <option value="aggregates">aggregates</option>
+   <option value="archive">archive</option>
+   <option value="delimited_text">delimited_text</option>
+   <option value="documents" selected="selected">documents</option>
+   <option value="forest">forest</option>
+   <option value="rdf">rdf</option>
+   <option value="sequencefile">sequencefile</option>
+​</script>   
+<script id="documentTypeOptions-partial" type="x-handlebars-template">​
+   <option value="mixed" selected="selected">mixed (documents only)</option>
+   <option value="xml">xml (default for sequence file)</option>
+   <option value="json">json</option>
+   <option value="text">text</option>
+   <option value="binary">binary</option>
+​</script>   
+<script id="inputCompressionCodecOptions-partial" type="x-handlebars-template">​
+   <option value="zip" selected="selected">zip</option>
+   <option value="gzip">gzip</option>
+​</script>   
+<script id="sequenceValueTypeOptions-partial" type="x-handlebars-template">​
+   <option value="text" selected="selected">text</option>
+   <option value="BytesWritable">BytesWritable</option>
+​</script>   
+<script id="outputTypeOptions-partial" type="x-handlebars-template">​
+   <option value="document" selected="document">text</option>
+   <option value="archive">archive</option>
+​</script>   
+						
+							
+
+
+
+
+
+
+
+		<!--<div class="row">
+		<div class="col-md-12">
+			<fieldset id="command-section">
+				<legend>Command</legend>
+				<label class="radio-inline">
+				  <input type="radio" name="command" id="command" value="import" checked> Import
+				  <span class="help-block">Import data from file system to database.</span>
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="command" id="command1" value="export"> Export
+				  <span class="help-block">Export data from source to file system.</span>
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="command" id="command2" value="copy"> Copy
+				  <span class="help-block">Copy data from one source to another.</span>
+				</label>
+			</fieldset>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<fieldset>
+				<legend>Database Information</legend>
+				<div class="form-group">
+					<label for="host" class="control-label">Host</label>
+					<input type="url" name="-host" class="form-control input-sm" value="" placeholder="Host Name" />
+				</div>
+				<div class="form-group">
+					<label for="port" class="control-label">Port</label>
+					<input type="number" name="-port" class="form-control input-sm" value="8000" placeholder="Port" />
+				</div>
+			</fieldset>
+		</div>
+		<div class="col-md-6">
+			<fieldset>
+				<legend>Authentication</legend>
+				<div class="form-group">
+					<label for="username" class="control-label">User Name</label>
+					<input type="text" name="-username" class="form-control input-sm" value="" placeholder="User Name" required />
+				</div>
+				<div class="form-group">
+					<label for="password" class="control-label">Password</label>
+					<input type="password" name="-password" class="form-control input-sm" value="" placeholder="Password" />
+				</div>
+				
+			</fieldset>
+		</div>
+	</div>
+	<h2>Settings</h2>
+	<div class="row">
+		<ul class="nav nav-pills" role="tablist">
+			<li role="presentation" class="active"><a href="#import" aria-controls="import" role="tab" data-toggle="pill">Import</a></li>
+			<li role="presentation"><a href="#export" aria-controls="export" role="tab" data-toggle="tab">Export</a></li>
+			<li role="presentation"><a href="#copy" aria-controls="copy" role="tab" data-toggle="tab">Copy</a></li>
+		</ul>
+	 	<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="import">
+				<form name="importForm" id="importForm" method="POST" action="http://localhost:8080/mlcp">
+					<fieldset>
+						<legend>Import Documents</legend>
+						<div class="form-group">
+							<label for="-input_file_path" class="control-label">Input File Path</label>
+							<input type="text" name="-input_file_path" class="form-control input-sm" value="" placeholder="Input File Path" />
+						</div>
+						<div class="row">
+							<div class="form-group col-md-12 ">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="output-uri-replacement" id="uri-replace" value="true" /> Replace output URI characters?
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label for="char-to-replace" class="control-label">Character to Replace</label>
+								<input type="text" name="char-to-replace" id="char-to-replace" value="" class="form-control" disabled/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="outputreplacementChar" class="control-label">Replacement Character</label>
+								<input type="text" name="outputreplacementChar" id="outputreplacementChar" value="" class="form-control" disabled/>
+							</div>
+						</div>
+					
+						<div class="form-group">
+							<label for="-output_uri_replace" class="control-label">Output URI Replace</label>
+							<input type="text" name="-output_uri_replace" class="form-control input-sm" value="" placeholder="Output URI" />
+						</div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="space-replace" id="space-replace" value="true" /> Replace spaces in file paths/names with character?
+								</label>
+							</div>
+							<label for="replacementChar" class="control-label">Replacement Character</label>
+							<input type="text" name="replacementChar" id="replacementChar" value="" class="form-control" maxlength="1" disabled/>
+						</div>
+					
+					</fieldset>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="export">
+				<form name="configureForm" id="configureForm" method="POST" action="http://localhost:8080/mlcp">
+					<div class="row">
+						<div class="col-md-6">
+							
+						</div>
+						<div id="export" class="col-md-6">
+							<fieldset disabled="disabled">
+								<legend>Export Documents</legend>
+								<div class="form-group">
+									<label for="-export_file_path" class="control-label">Export File Path</label>
+									<input type="text" name="-export_file_path" class="form-control input-sm" value="" placeholder="Input File Path" />
+								</div>
+								<div class="form-group">
+									<label for="-directory_filter" class="control-label">Directory Filter</label>
+									<input type="text" name="-directory_filter" class="form-control input-sm" value="" placeholder="Directory Filter" />
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<input type="submit" value="Submit" class="btn btn-primary"/>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="copy">
+				copy
+			</div>
+		</div>
+  	</div>-->
+
+	</div>
+
+
+	<script type="text/javascript" src="/js/lib/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="/js/lib/jquery.bootstrap.wizard.min.js"></script> -->
+	<script type="text/javascript" src="/js/lib/fuelux.js"></script>
+	<script type="text/javascript" src="/js/app.js"></script>
+	<script src="/js/lib/handlebars-v3.0.3.js" type="text/javascript"></script>
+</body>
+</html>

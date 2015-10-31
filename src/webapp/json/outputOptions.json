@@ -1,0 +1,120 @@
+{
+    "action_title": "Export",
+    "settings":[
+
+    {
+        "Field": "-collection_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of collection URIs. mlcp exports only documents in these collections, plus related metadata. This option may not be combined with -directory_filter or -document_selector. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-compress",
+        "Type": "boolean",
+        "Description": "Whether or not to compress the output document. Only applicable when -output_type is document. Default: false."
+    },
+    {
+        "Field": "-conf",
+        "Type": "filename",
+        "Description": "Pass extra setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-content_encoding",
+        "Type": "string",
+        "Description": "The character encoding of output documents when -input_file_type is documents. The option value must be a character set name accepted by your JVM; see java.nio.charset.Charset. Default: UTF-8. Set to system to use the platform default encoding for the host on which mlcp runs."
+    },
+    {
+        "Field": "-copy_collections",
+        "Type": "boolean",
+        "Description": "When exporting documents to an archive, whether or not to copy collections to the destination. Default: true."
+    },
+    {
+        "Field": "-copy_permissions",
+        "Type": "boolean",
+        "Description": "When exporting documents to an archive, whether or not to copy document permissions to the destination. Default: true."
+    },
+    {
+        "Field": "-copy_properties",
+        "Type": "boolean",
+        "Description": "When exporting documents to an archive, whether or not to copy properties to the destination. Default: true."
+    },
+    {
+        "Field": "-copy_quality",
+        "Type": "boolean",
+        "Description": "When exporting documents to an archive, whether or not to copy document quality to the destination. Default: true."
+    },
+    {
+        "Field": "-D property=value",
+        "Type": "string",
+        "Description": "Pass a configuration property setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-database",
+        "Type": "string",
+        "Description": "The name of the source database. Default: The database associated with the source App Server identified by -host and -port."
+    },
+    {
+        "Field": "-directory_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of database directory names. mlcp exports only documents from these directories, plus related metadata. Directory names should usually end with '/'. This option may not be combined with -collection_filter or -document_selector. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-document_selector",
+        "Type": "string",
+        "Description": "Specifies an XPath expression used to select which documents are exported from the database. The XPath expression should select fragment roots. This option may not be combined with -directory_filter or -collection_filter. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-hadoop_conf_dir",
+        "Type": "string",
+        "Description": "When using distributed mode, the Hadoop config directory. For details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-indented",
+        "Type": "boolean",
+        "Description": "Whether to pretty-print XML output. Default: false."
+    },
+    {
+        "Field": "-max_split_size",
+        "Type": "number",
+        "Description": "The maximum number of document fragments processed per split. Default: 20000 in local mode, 50000 in distributed mode."
+    },
+    {
+        "Field": "-mode",
+        "Type": "string",
+        "Description": "Export mode. Accepted values: distributed, local. Distributed mode requires Hadoop. Default: local, unless you set the HADOOP_CONF_DIR variable; for details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-options_file",
+        "Type": "string",
+        "Description": "Specify an options file pathname from which to read additional command line options. If you use an options file, this option must appear first. For details, see Options File Syntax."
+    },
+    {
+        "Field": "-output_file_path",
+        "Type": "string",
+        "Description": "Destination directory where the archive or documents are saved. The directory must not already exist."
+    },
+    {
+        "Field": "-output_type",
+        "Type": "type",
+        "Description": "The type of output to produce. Accepted values: document, archive. Default: document."
+    },
+    {
+        "Field": "-path_namespace",
+        "Type": "comma-list",
+        "Description": "Specifies one or more namespace prefix bindings for namespace prefixes usable in path expressions passed to -document_selector. The list items should be alternating pairs of prefix names and namespace URIs, such as'pfx1,http://my/ns1,pfx2,http://my/ns2'."
+    },
+    {
+        "Field": "-port",
+        "Type": "number",
+        "Description": "Port number of the source MarkLogic Server. There should be an XDBC App Server on this port. The App Server must not be SSL-enabled. Default: 8000."
+    },
+    {
+        "Field": "-snapshot",
+        "Type": "boolean",
+        "Description": "Whether or not to export a consistent point-in-time snapshot of the database contents. Default: false. When true, the job submission time is used as the database read timestamp for selecting documents to export. For details, see Extracting a Consistent Database Snapshot."
+    },
+    {
+        "Field": "-thread_count",
+        "Type": "number",
+        "Description": "The number of threads to spawn for concurrent exporting. The total number of threads spawned by the process can be larger than this number, but this option caps the number of concurrent sessions with MarkLogic Server. Only available inlocal mode. Default: 4."
+    }
+]}

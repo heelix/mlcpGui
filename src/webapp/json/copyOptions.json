@@ -1,0 +1,34 @@
+{
+	"action_title": "Copy",
+	"settings":[
+    {
+        "Field": "-input_host",
+        "Type": "string",
+        "Description": "Hostname of the source MarkLogic Server."
+    },
+    {
+        "Field": "-input_username",
+        "Type": "string",
+        "Description": "MarkLogic Server user with which to export documents."
+    },
+    {
+        "Field": "-input_password",
+        "Type": "string",
+        "Description": "Password for the MarkLogic Server user specified with -input_username."
+    },
+    {
+        "Field": "-output_host",
+        "Type": "string",
+        "Description": "Hostname of the destination MarkLogic Server."
+    },
+    {
+        "Field": "-output_username",
+        "Type": "string",
+        "Description": "MarkLogic Server user with which to import documents to the destination."
+    },
+    {
+        "Field": "-output_password",
+        "Type": "string",
+        "Description": "Password for the MarkLogic Server user specified with -output_username."
+    }
+]}

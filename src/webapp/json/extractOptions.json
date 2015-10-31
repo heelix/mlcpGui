@@ -1,0 +1,64 @@
+{
+	"action_title": "Extract",
+	"settings":[
+    {
+        "Field": "-collection_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of collection URIs. mlcp extracts only documents in these collections. This option can be combined with other filter options. Default: All documents."
+    },
+    {
+        "Field": "-compress",
+        "Type": "boolean",
+        "Description": "Whether or not to compress the output. Mlcp might generate multiple compressed files. Default: false."
+    },
+    {
+        "Field": "-conf",
+        "Type": "filename",
+        "Description": "Pass extra setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-D",
+        "Type": "property=value",
+        "Description": "Pass a configuration property setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-directory_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of database directory names. mlcp extracts only documents from these directories, plus related metadata. Directory names should usually end with '/'. This option can be combined with other filter options. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-hadoop_conf_dir",
+        "Type": "string",
+        "Description": "When using distributed mode, the Hadoop config directory. For details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-max_split_size",
+        "Type": "number",
+        "Description": "The maximum number of document fragments processed per split. Default: 50000."
+    },
+    {
+        "Field": "-mode",
+        "Type": "string",
+        "Description": "Export mode. Accepted values: distributed, local. Distributed mode requires Hadoop. Default: local, unless you set the HADOOP_CONF_DIR variable; for details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-options_file",
+        "Type": "string",
+        "Description": "Specify an options file pathname from which to read additional command line options. If you use an options file, this option must appear first. For details, see Options File Syntax."
+    },
+    {
+        "Field": "-output_file_path",
+        "Type": "string",
+        "Description": "Destination directory where the documents are saved. The directory must not already exist."
+    },
+    {
+        "Field": "-thread_count",
+        "Type": "number",
+        "Description": "The number of threads to spawn for concurrent exporting. The total number of threads spawned by the process can be larger than this number, but this option caps the number of concurrent sessions with MarkLogic Server. Only available inlocal mode. Default: 4."
+    },
+    {
+        "Field": "-type_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of document types. mlcp extracts only documents with these types. This option can be combined with other filter options. Allowed documentypes: xml, text, binary. Default: All documents."
+    }
+]}

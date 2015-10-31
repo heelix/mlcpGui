@@ -1,0 +1,179 @@
+{
+	"action_title": "Optional",
+	"settings":[
+    {
+        "Field": "-batch_size",
+        "Type": "number",
+        "Description": "The number of documents to load per request to MarkLogic Server. This option is ignored when you use -transform_module; a transform always sets the batch size to 1. Default: 100."
+    },
+    {
+        "Field": "-collection_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of collection URIs. mlcp exports only documents in these collections, plus related metadata. This option may not be combined with -directory_filter. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-conf",
+        "Type": "filename",
+        "Description": "Pass extra setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-copy_collections",
+        "Type": "boolean",
+        "Description": "Whether to copy document collections from the source database to the destination database. Default: true."
+    },
+    {
+        "Field": "-copy_permissions",
+        "Type": "boolean",
+        "Description": "Whether to copy document permissions from the source database to the destination database. Default: true."
+    },
+    {
+        "Field": "-copy_properties",
+        "Type": "boolean",
+        "Description": "Whether to copy document properties from the source database to the destination database. Default: true."
+    },
+    {
+        "Field": "-copy_quality",
+        "Type": "boolean",
+        "Description": "Whether to copy document quality from the source database to the destination database. Default: true."
+    },
+    {
+        "Field": "-D property=value",
+        "Type": "string",
+        "Description": "Pass a configuration property setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-directory_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of database directories. mlcp exports only documents from these directories, plus related metadata. Directory names should usually end with '/'. This option may not be combined with -collection_filter. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-document_selector",
+        "Type": "string",
+        "Description": "Specifies an XPath expression used to select which documents are extracted from the source database. The XPath expression should select fragment roots. This option may not be combined with -directory_filter or -collection_filter. Default: All documents and related metadata."
+    },
+    {
+        "Field": "-fastload",
+        "Type": "boolean",
+        "Description": "Whether or not to force optimal performance, even at the risk of creating duplicate document URIs. See Time vs. Correctness: Understanding -fastload Tradeoffs. Default: false."
+    },
+    {
+        "Field": "-hadoop_conf_dir",
+        "Type": "string",
+        "Description": "When using distributed mode, the Hadoop config directory. For details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-input_database",
+        "Type": "string",
+        "Description": "The name of the source database. Default: The database associated with the source App Server identified by -input_host and -input_port."
+    },
+    {
+        "Field": "-input_port",
+        "Type": "number",
+        "Description": "Port number of the source MarkLogic Server. There should be an XDBC App Server on this port. The App Server must not be SSL-enabled. Default: 8000."
+    },
+    {
+        "Field": "-max_split_size",
+        "Type": "number",
+        "Description": "The maximum number of document fragments processed per split. Default: 50000."
+    },
+    {
+        "Field": "-mode",
+        "Type": "string",
+        "Description": "Copy mode. Accepted values: distributed, local. Distributed mode requires Hadoop. Default: local, unless you set the HADOOP_CONF_DIR variable; for details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-path_namespace",
+        "Type": "comma-list",
+        "Description": "Specifies one or more namespace prefix bindings for namespace prefixes usable in path expressions passed to -document_selector. The list items should be alternating pairs of prefix names and namespace URIs, such as'pfx1,http://my/ns1,pfx2,http://my/ns2'."
+    },
+    {
+        "Field": "-options_file",
+        "Type": "string",
+        "Description": "Specify an options file pathname from which to read additional command line options. If you use an options file, this option must appear first. For details, see Options File Syntax."
+    },
+    {
+        "Field": "-output_collections",
+        "Type": "comma-list",
+        "Description": "A comma separated list of collection URIs. Output documents are added to these collections."
+    },
+    {
+        "Field": "-output_database",
+        "Type": "string",
+        "Description": "The name of the destination database. Default: The database associated with the destination App Server identified by -output_host and -output_port."
+    },
+    {
+        "Field": "-output_permissions",
+        "Type": "comma-list",
+        "Description": "A comma separated list of (role,capability) pairs to apply to loaded documents. Default: The default permissions associated with the user inserting the document. Example: -output_permissions role1,read,role2,update"
+    },
+    {
+        "Field": "-output_port",
+        "Type": "number",
+        "Description": "Port number of the destination MarkLogic Server. There should be an XDBC App Server on this port. The App Server must not be SSL-enabled. Default: 8000."
+    },
+    {
+        "Field": "-output_quality",
+        "Type": "string",
+        "Description": "The quality to assign to output documents."
+    },
+    {
+        "Field": "-output_partition",
+        "Type": "string",
+        "Description": "The name of the database partition in which to create documents. Required when using range assignment policy. For details, see How Assignment Policy Affects Optimization and Partitions, Partition Keys, and Partition Ranges in theAdministrator's Guide."
+    },
+    {
+        "Field": "-output_uri_prefix",
+        "Type": "string",
+        "Description": "URI prefix to the id specified by -output_idname. Used to construct output document URIs."
+    },
+    {
+        "Field": "-output_uri_replace",
+        "Type": "comma-list",
+        "Description": "A comma separated list of (regex,string) pairs that define string replacements to apply to the URIs of documents added to the database. The replacement strings must be enclosed in single quotes. For example, -output_uri_replace \"regex1,'string1',regext2,'string2'\""
+    },
+    {
+        "Field": "-output_uri_suffix",
+        "Type": "string",
+        "Description": "URI suffix to the id specified by -output_idname. Used to construct output document URIs."
+    },
+    {
+        "Field": "-snapshot",
+        "Type": "boolean",
+        "Description": "Whether or not to use a consistent point-in-time snapshot of the source database contents. Default: false. When true, the job submission time is used as the database read timestamp for selecting documents to export. For details, seeExtracting a Consistent Database Snapshot."
+    },
+    {
+        "Field": "-temporal_collection",
+        "Type": "string",
+        "Description": "A temporal collection into which the documents are to be loaded in the destination database. For details on loading temporal documents into MarkLogic, see Using MarkLogic Content Pump (MLCP) to Load Temporal Documents in theTemporal Developer's Guide."
+    },
+    {
+        "Field": "-thread_count",
+        "Type": "number",
+        "Description": "The number of threads to spawn for concurrent copying. The total number of threads spawned by the process can be larger than this number, but this option caps the number of concurrent sessions with MarkLogic Server. Only available inlocal mode. Default: 4."
+    },
+    {
+        "Field": "-transform_function",
+        "Type": "string",
+        "Description": "The localname of a custom content transformation function installed on MarkLogic Server. Ignored if -transform_module is not specified. Default: transform. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transform_module",
+        "Type": "string",
+        "Description": "The path in the modules database or modules directory of a custom content transformation function installed on MarkLogic Server. This option is required to enable a custom transformation. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transform_namespace",
+        "Type": "string",
+        "Description": "The namespace URI of the custom content transformation function named by -transform_function. Ignored if -transform_module is not specified. Default: no namespace. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transform_param",
+        "Type": "string",
+        "Description": "Optional extra data to pass through to a custom transformation function. Ignored if -transform_module is not specified. Default: no namespace. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transaction_size",
+        "Type": "number",
+        "Description": "When loading documents into the destination database, the number of requests to MarkLogic Server in one transaction. Default: 10."
+    }
+]}

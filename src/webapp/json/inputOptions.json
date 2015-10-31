@@ -1,0 +1,305 @@
+{
+	"action_title": "Import",
+	"settings":[
+    {
+        "Field": "-aggregate_record_element",
+        "Type": "string",
+        "Description": "When splitting an aggregate input file into multiple documents, the name of the element to use as the output document root. Default: The first child element under the root element."
+    },
+    {
+        "Field": "-aggregate_record_namespace",
+        "Type": "string",
+        "Description": "The namespace of the element specificed by -aggregate_record_element_name. Default: No namespace."
+    },
+    {
+        "Field": "-aggregate_uri_id",
+        "Type": "string",
+        "Description": "When splitting an aggregate input file into multiple documents, the element or attribute name within the document root to use as the document URI. Default: In local mode, hashcode-seqnum, where the hashcode is derived from the split number; in distribute mode, taskid-seqnum."
+    },
+    {
+        "Field": "-batch_size",
+        "Type": "number",
+        "Description": "The number of documents to process in a single request to MarkLogic Server. This option is ignored when you use -transform_module; a transform always sets the batch size to 1. Default: 100."
+    },
+    {
+        "Field": "-collection_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of collection URIs. Only usable with -input_file_type forest. mlcp extracts only documents in these collections. This option can be combined with other filter options. Default: Import all documents."
+    },
+    {
+        "Field": "-conf",
+        "Type": "filename",
+        "Description": "Pass extra setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-content_encoding",
+        "Type": "string",
+        "Description": "The character encoding of input documents when -input_file_type is documents, aggregates,delimited_text, or rdf. The option value must be a character set name accepted by your JVM; seejava.nio.charset.Charset. Default: UTF-8. Set to system to use the platform default encoding for the host on which mlcp runs."
+    },
+    {
+        "Field": "-copy_collections",
+        "Type": "boolean",
+        "Description": "When importing documents from an archive, whether to copy document collections from the source archive to the destination. Only applies with -input_file_type archive. Default: true."
+    },
+    {
+        "Field": "-copy_permissions",
+        "Type": "boolean",
+        "Description": "When importing documents from an archive, whether to copy document permissions from the source archive to the destination. Only applies with -input_file_type archive. Default: true."
+    },
+    {
+        "Field": "-copy_properties",
+        "Type": "boolean",
+        "Description": "When importing documents from an archive, whether to copy document properties from the source archive to the destination. Only applies with -input_file_type archive. Default: true."
+    },
+    {
+        "Field": "-copy_quality",
+        "Type": "boolean",
+        "Description": "When importing documents from an archive, whether to copy document quality from the source archive to the destination. Only applies with -input_file_type archive. Default: true."
+    },
+    {
+        "Field": "-D property=value",
+        "Type": "string",
+        "Description": "Pass a configuration property setting to Hadoop when using distributed mode. For details, see Setting Custom Hadoop Options and Properties. This option must appear before mlcp-specific options."
+    },
+    {
+        "Field": "-database",
+        "Type": "string",
+        "Description": "The name of the destination database. Default: The database associated with the destination App Server identified by -host and -port."
+    },
+    {
+        "Field": "-delimiter",
+        "Type": "character",
+        "Description": "When importing content with -input_file_type delimited_text, the delimiting character. Default: comma (,)."
+    },
+    {
+        "Field": "-delimited_root_name",
+        "Type": "string",
+        "Description": "When importing content with -input_file_type delimited_text, the localname of the document root element. Default: root."
+    },
+    {
+        "Field": "-delimited_uri_id",
+        "Type": "string",
+        "Description": "When importing content -input_file_type delimited_text, the column name that contributes to the id portion of the URI for inserted documents. Default: The first column."
+    },
+    {
+        "Field": "-directory_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of database directory names. Only usable with -input_file_type forest. mlcp extracts only documents from these directories, plus related metadata. Directory names should usually end with '/'. This option can be combined with other filter options. Default: Import all documents."
+    },
+    {
+        "Field": "-document_type",
+        "Type": "type",
+        "Description": "The type of document to create when -input_file_type is documents or sequencefile. Accepted values:mixed (documents only), xml, json, text, binary. Default: mixed for documents, xml for sequencefile."
+    },
+    {
+        "Field": "-fastload",
+        "Type": "boolean",
+        "Description": "Whether or not to force optimal performance, even at the risk of creating duplicate document URIs. See Time vs. Correctness: Understanding -fastload Tradeoffs. Default: false."
+    },
+    {
+        "Field": "-filename_as_collection",
+        "Type": "boolean",
+        "Description": "Add each loaded document to a collection corresponding to the name of the input file. You cannot use this option when -input_file_type is rdf or forest. Useful when splitting an input file into multiple documents. If the filename contains characters not permitted in a URI, those characters are URI encoded. Default: false."
+    },
+    {
+        "Field": "-generate_uri",
+        "Type": "boolean",
+        "Description": "When importing content with -input_file_type delimited_text, whether or not MarkLogic Server should automatically generate document URIs. Default: false."
+    },
+    {
+        "Field": "-hadoop_conf_dir",
+        "Type": "string",
+        "Description": "When using distributed mode, the Hadoop config directory. For details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-archive_metadata_optional",
+        "Type": "boolean",
+        "Description": "When importing documents from a database archive, whether or not to ignore missing metadata files. If this isfalse and the archive contains no metadata, an error occurs. Default: false."
+    },
+    {
+        "Field": "-input_compressed",
+        "Type": "boolean",
+        "Description": "Whether or not the source data is compressed. Default: false."
+    },
+    {
+        "Field": "-input_compression_codec",
+        "Type": "type",
+        "Description": "When -input_compressed is true, the code used for compression. Accepted values: zip, gzip."
+    },
+    {
+        "Field": "-input_file_path",
+        "Type": "string",
+        "Description": "A regular expression describing the filesystem location(s) to use for input. For details, see Regular Expression Syntax."
+    },
+    {
+        "Field": "-input_file_pattern",
+        "Type": "string",
+        "Description": "Load only input files that match this regular expression from the path(s) matched by -input_file_path. For details, see Regular Expression Syntax. Default: Load all files. This option is ignored when -input_file_type isforest."
+    },
+    {
+        "Field": "-input_file_type",
+        "Type": "type",
+        "Description": "The input file type. Accepted value: aggregates, archive, delimited_text, documents, forest, rdf,sequencefile. Default: documents."
+    },
+    {
+        "Field": "-sequencefile_key_class",
+        "Type": "string",
+        "Description": "When importing Hadoop sequence files, the name of the Java class to use as the input key. Required when using -input_file_type sequencefile."
+    },
+    {
+        "Field": "-sequencefile_value_class",
+        "Type": "string",
+        "Description": "When importing Hadoop sequence files, the name of the Java class to use as the input value. Required when using-input_file_type sequencefile."
+    },
+    {
+        "Field": "-sequencefile_value_type",
+        "Type": "type",
+        "Description": "When importing Hadoop sequence files, the type of the value data returned by the class named by -sequencefile_value_class. Accepted values: Text, BytesWritable. (Values are case-insensitive). Default:Text."
+    },
+    {
+        "Field": "-max_split_size",
+        "Type": "number",
+        "Description": "When importing from files, the maximum number of bytes in one input split. Default: The maximum Long value (Long.MAX_VALUE)."
+    },
+    {
+        "Field": "-min_split_size",
+        "Type": "number",
+        "Description": "When importing from files, the minimum number of bytes in one input split. Default: 0."
+    },
+    {
+        "Field": "-mode",
+        "Type": "string",
+        "Description": "Ingestion mode. Accepted values: distributed, local. Distributed mode requires Hadoop. Default: local, unless you set the HADOOP_CONF_DIR variable; for details, see Configuring Distributed Mode."
+    },
+    {
+        "Field": "-namespace",
+        "Type": "string",
+        "Description": "The default namespace for all XML documents created during loading."
+    },
+    {
+        "Field": "-options_file",
+        "Type": "string",
+        "Description": "Specify an options file pathname from which to read additional command line options. If you use an options file, this option must appear first. For details, see Options File Syntax."
+    },
+    {
+        "Field": "-output_cleandir",
+        "Type": "boolean",
+        "Description": "Whether or not to delete all content in the output database directory prior to loading. Default: false."
+    },
+    {
+        "Field": "-output_collections",
+        "Type": "comma-list",
+        "Description": "A comma separated list of collection URIs. Loaded documents are added to these collections."
+    },
+    {
+        "Field": "-output_directory",
+        "Type": "string",
+        "Description": "The destination database directory in which to create the loaded documents. If the directory exists, its contents are removed prior to ingesting new documents. Using this option enables -fastload by default, which can cause duplicate URIs to be created. See Time vs. Correctness: Understanding -fastload Tradeoffs."
+    },
+    {
+        "Field": "-output_language",
+        "Type": "string",
+        "Description": "The xml:lang to associate with loaded documents."
+    },
+    {
+        "Field": "-output_partition",
+        "Type": "string",
+        "Description": "The name of the database partition in which to create documents. For details, see How Assignment Policy Affects Optimization andHow Assignment Policy Affects Optimization and Partitions, Partition Keys, and Partition Ranges in the Administrator's Guide."
+    },
+    {
+        "Field": "-output_permissions",
+        "Type": "comma-list",
+        "Description": "A comma separated list of (role,capability) pairs to apply to loaded documents. Default: The default permissions associated with the user inserting the document. Example: -output_permissions role1,read,role2,update"
+    },
+    {
+        "Field": "-output_quality",
+        "Type": "string",
+        "Description": "The quality of loaded documents. Default: 0."
+    },
+    {
+        "Field": "-output_uri_prefix",
+        "Type": "string",
+        "Description": "URI prefix to the id specified by -output_idname. Used to construct output document URIs."
+    },
+    {
+        "Field": "-output_uri_replace",
+        "Type": "comma-list",
+        "Description": "A comma separated list of (regex,string) pairs that define string replacements to apply to the URIs of documents added to the database. The replacement strings must be enclosed in single quotes. For example, -output_uri_replace \"regex1,'string1',regext2,'string2'\""
+    },
+    {
+        "Field": "-output_uri_suffix",
+        "Type": "string",
+        "Description": "URI suffix to the id specified by -output_idname. Used to construct output document URIs."
+    },
+    {
+        "Field": "-port",
+        "Type": "number",
+        "Description": "Port number of the destination MarkLogic Server. There should be an XDBC App Server on this port. The App Server must not be SSL-enabled. Default: 8000."
+    },
+    {
+        "Field": "-split_input",
+        "Type": "boolean",
+        "Description": "Whether or not to divide input data into logical chunks to support more concurrency. Only supported when -input_file_type is one of the following: delimited_text. Default: false for local mode, true for distributed mode. For details, see Improving Throughput with -split_input."
+    },
+    {
+        "Field": "-streaming",
+        "Type": "boolean",
+        "Description": "Whether or not to stream documents to MarkLogic Server. Applies only when -input_file_type is documents."
+    },
+    {
+        "Field": "-temporal_collection",
+        "Type": "string",
+        "Description": "The temporal collection into which the temporal documents are to be loaded. For details on loading temporal documents into MarkLogic, see Using MarkLogic Content Pump (MLCP) to Load Temporal Documents in theTemporal Developer's Guide."
+    },
+    {
+        "Field": "-thread_count",
+        "Type": "number",
+        "Description": "The number of threads to spawn for concurrent loading. The total number of threads spawned by the process can be larger than this number, but this option caps the number of concurrent sessions with MarkLogic Server. Only available in local mode. Default: 4."
+    },
+    {
+        "Field": "-thread_count_per_split",
+        "Type": "number",
+        "Description": "The maximum number of threads that can be assigned to each split. In local mode, the default behavior is a round-robin allocation of threads to each split, which results in one thread per split if there are more splits than threads. The total number of available threads is controlled by -thread_count. For details, see Tuning Split Size and Thread Count for Local Mode. In distributed mode, each split is assigned the number of threads specified by this option. For details, see Tuning Split Size for Distributed Mode."
+    },
+    {
+        "Field": "-tolerate_errors",
+        "Type": "boolean",
+        "Description": "Applicable only when -batch_size is greater than 1. When this option is true and batch size is greater than 1, if an error occurs for one or more documents during loading, only the erroneous documents are skipped; all other documents are inserted into the database. When this option is false or batch size is 1, errors during insertion can cause all the inserts in the current batch to be rolled back. Default: false."
+    },
+    {
+        "Field": "-transform_function",
+        "Type": "string",
+        "Description": "The localname of a custom content transformation function installed on MarkLogic Server. Ignored if -transform_module is not specified. Default: transform. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transform_module",
+        "Type": "string",
+        "Description": "The path in the modules database or modules directory of a custom content transformation function installed on MarkLogic Server. This option is required to enable a custom transformation. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transform_namespace",
+        "Type": "string",
+        "Description": "The namespace URI of the custom content transformation function named by -transform_function. Ignored if-transform_module is not specified. Default: no namespace. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transform_param",
+        "Type": "string",
+        "Description": "Optional extra data to pass through to a custom transformation function. Ignored if -transform_module is not specified. Default: no namespace. For details, see Transforming Content During Ingestion."
+    },
+    {
+        "Field": "-transaction_size",
+        "Type": "number",
+        "Description": "The number of requests to MarkLogic Server per transaction. Default: 10."
+    },
+    {
+        "Field": "-type_filter",
+        "Type": "comma-list",
+        "Description": "A comma-separated list of document types. Only usable with -input_file_type forest. mlcp imports only documents with these types. This option can be combined with other filter options. Default: Import all documents."
+    },
+    {
+        "Field": "-xml_repair_level",
+        "Type": "string",
+        "Description": "The degree of repair to attempt on XML documents in order to create well-formed XML. Accepted values: default,full, none. Default: default, which depends on the configured MarkLogic Server default XQuery version: In XQuery 1.0 and 1.0-ml the default is none. In XQuery 0.9-ml the default is full."
+    }
+]
+}
